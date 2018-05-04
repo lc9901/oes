@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"  
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+    xmlns:cache="http://www.springframework.org/schema/cache"  
+    xsi:schemaLocation="  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context.xsd  
+    http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans.xsd  
+    http://www.springframework.org/schema/tx  
+    http://www.springframework.org/schema/tx/spring-tx.xsd  
+    http://www.springframework.org/schema/jdbc  
+    http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd  
+    http://www.springframework.org/schema/cache  
+    http://www.springframework.org/schema/cache/spring-cache-3.1.xsd  
+    http://www.springframework.org/schema/aop  
+    http://www.springframework.org/schema/aop/spring-aop.xsd  
+    http://www.springframework.org/schema/util  
+    http://www.springframework.org/schema/util/spring-util.xsd">
+    
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+      <list>
+        <value>classpath:app.properties</value>
+      </list>
+    </property>
+  </bean>
+  
+  <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+    <property name="driverClass" value="${jdbc.driver}" />
+    <property name="jdbcUrl" value="${jdbc.url}" />
+    <property name="user" value="${jdbc.user}" />
+    <property name="password" value="${jdbc.password}" />
+
+    <property name="maxPoolSize" value="20" />
+    <property name="minPoolSize" value="5" />
+    <property name="acquireIncrement" value="3" />
+    <property name="initialPoolSize" value="5" />
+  </bean>
+
+<!-- jdbc-start -->
+<!-- 
+  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+    <property name="dataSource">
+      <ref bean="dataSource" />
+    </property>
+  </bean>
+  <bean id="baseDao" abstract="true">
+    <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+  </bean>  
+  <bean id="questionDao" class="com.asher.oes.dao.jdbc.QuestionDaoImpl" parent="baseDao"/>
+  <bean id="userDao" class="com.asher.oes.dao.jdbc.UserDaoImpl" parent="baseDao" />
+   -->
+<!-- jdbc-end -->
+
+<!-- mybaties-strat -->
+
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="typeAliasesPackage" value="com.asher.oes.model"/>
+    <property name="mapperLocations" value="classpath*:com/asher/oes/model/mysql/*Mapper.xml" />
+  </bean>
+  <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+    <constructor-arg index="0" ref="sqlSessionFactory" />
+  </bean>
+    
+    <bean id="baseDao" abstract="true">
+        <property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+    </bean>
+  <bean id="questionDao" class="com.asher.oes.dao.mybaties.QuestionDaoImpl" parent="baseDao"/>
+  <bean id="userDao" class="com.asher.oes.dao.mybaties.UserDaoImpl" parent="baseDao"/>
+<!-- mybaties-end -->
+
+<!-- aop-start -->
+
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"></property>
+  </bean>
+
+  <bean id="logMethodTimeAdvice" class="com.asher.oes.service.impl.LoginMethodTime" />
+
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+      <tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException"/>
+      <tx:method name="add*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException"/>
+      <tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException"/>
+      <tx:method name="save*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException"/>
+      <tx:method name="*" propagation="SUPPORTS" read-only="true" />
+    </tx:attributes>
+  </tx:advice>
+
+   <!-- point cut -->
+  <aop:config>
+    <aop:pointcut id="pc" expression="execution(* com.asher.oes.service..*.*(..))" />
+    <aop:advisor pointcut-ref="pc" advice-ref="txAdvice" order="1" />
+    <aop:advisor pointcut-ref="pc" advice-ref="logMethodTimeAdvice" order="2" />
+  </aop:config>
+
+<!-- aop-end -->
+
+  <bean class="com.asher.oes.util.SpringUtil"></bean>
+
+  <bean id="questionService" class="com.asher.oes.service.impl.QuestionServiceImpl" >
+    <property name="questionDao" ref="questionDao"></property>
+  </bean>
+  <bean id="userService" class="com.asher.oes.service.impl.UserServiceImpl" >
+    <property name="userDao" ref="userDao"></property>
+  </bean>
+
+  <bean id="pageTitleBlock" class="com.asher.oes.block.PageTitleBlock" >
+    <property name="template" value="/WEB-INF/jsp/user/page_title.jsp" />
+  </bean>
+  <bean id="questionListBlock" class="com.asher.oes.block.QuestionListBlock" >
+    <property name="template" value="/WEB-INF/jsp/question/question_list.jsp" />
+    <property name="questionService" ref="questionService"></property>
+  </bean>
+  <bean id="paginationBlock" class="com.asher.oes.block.PaginationBlock" >
+    <property name="template" value="/WEB-INF/jsp/toolblock/pagination.jsp" />
+  </bean>
+  <bean id="flashMassageBlock" class="com.asher.oes.block.FlashMassageBlock" >
+    <property name="template" value="/WEB-INF/jsp/toolblock/flash_massage.jsp" />
+  </bean>
+</beans>

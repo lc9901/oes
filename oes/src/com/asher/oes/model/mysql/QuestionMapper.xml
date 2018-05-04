@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.asher.oes.model.Question">
+
+  <resultMap id="questionListMap" type="Question">
+    <id column="id" property="id"/>
+    <result column="description" property="description"/>
+  </resultMap>
+  <resultMap id="questionDetailMap" type="Question" >
+    <id column="id" property="id"/>
+    <result column="description" property="description"/>
+    <result column="answer" property="answer"/>
+    <result column="option_a" property="optionA"/>
+    <result column="option_b" property="optionB"/>
+    <result column="option_c" property="optionC"/>
+    <result column="option_d" property="optionD"/>
+  </resultMap>
+
+  <insert id="insertQuestionId" parameterType="Question" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+      INSERT INTO question (`question_status`, `create_time`)
+       VALUES ( 'DRAFT', NOW())
+    ]]>
+  </insert>
+  
+  <update id="updateQuestion" parameterType="Question" >
+    <![CDATA[
+            UPDATE question 
+            SET 
+                question_status = 'ACTIVE',
+                user_id = #{userId} ,
+                description = #{description},
+                answer = #{answer},
+                update_time = NOW(),
+                option_a = #{optionA},
+                option_b = #{optionB},
+                option_c = #{optionC},
+                option_d = #{optionD}
+            WHERE 
+                id = #{id}
+    ]]>
+  </update>
+  
+  <select id="queryQuestionList" parameterType="java.util.Map" resultMap="questionListMap">
+    <![CDATA[
+        SELECT 
+            `id`, `description` 
+        FROM 
+            question 
+        WHERE 
+            question_status = 'ACTIVE' 
+    ]]>
+    <if test="search != ''">
+    <![CDATA[
+        AND id LIKE '%${search}%'
+        OR description LIKE '%${search}%'
+    ]]>
+    </if>
+    <![CDATA[
+            ORDER BY id 
+    ]]>
+        <include refid="orderBy"/>
+    <![CDATA[
+        LIMIT #{offSet}, #{pageSize}
+    ]]>
+  </select>
+
+  <sql id="orderBy">
+    <if test="orderBy == 'ASC'">
+      <![CDATA[
+        ASC
+      ]]>
+    </if>
+    <if test="orderBy == 'DESC'">
+      <![CDATA[
+        DESC
+      ]]>
+    </if>
+  </sql>
+  <select id="getTotalCount" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    <![CDATA[
+        SELECT 
+            COUNT(id) 
+        FROM 
+            question 
+        WHERE
+            question_status = 'ACTIVE'
+    ]]>
+    <if test="_parameter != ''">
+    <![CDATA[
+        AND id LIKE '%${_parameter}%'
+        OR description LIKE '%${_parameter}%'
+    ]]>
+    </if>
+  </select>
+  
+  <update id="deleteQuestion" parameterType="String" >
+    <![CDATA[
+            UPDATE question 
+            SET 
+                question_status = 'DELETE'
+            WHERE 
+                id IN (${_parameter})
+    ]]>
+  </update>
+  
+  <select id="queryOneQuestion" parameterType="Question" resultMap="questionDetailMap">
+    <![CDATA[
+        SELECT
+            `id`, `description`, `answer`, `option_a`, `option_b`, `option_c`, `option_d`
+        FROM 
+            question
+        WHERE
+            id = #{id}
+  ]]>
+  </select>
+
+</mapper>

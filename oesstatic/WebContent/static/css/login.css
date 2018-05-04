@@ -1,0 +1,159 @@
+@charset="utf-8";
+
+.root {
+  width: 1280px;
+  height: 760px;
+  margin: 0px auto;
+}
+
+.check {
+    height: 12px;
+}
+
+.tip_user {
+  padding-left: 3px;
+  color: red;
+  position: absolute;
+  font-size: 14px;
+  font-family: Arial;
+  top: 30px;
+  left: 50px;
+  background-color: #FCCB9C;
+  height: 20px;
+  line-height: 18px;
+  width: 298px;
+  border-radius: 3px;
+  display: none;
+}
+
+#errorUserName {
+  position: absolute;
+  top: 68px;
+}
+
+#errorPassword {
+  position: absolute;
+  top: 123px;
+}
+
+.erroTip {
+  color: red;
+  visibility: hidden;
+}
+
+.login_ioc_use {
+  top: 70px;
+}
+
+.login_ioc_pass {
+    top: 123px;
+}
+
+.position {
+  position: absolute;
+  left:63px;
+}
+
+.login_input {
+  width: 260px;
+  height: 35px;
+  margin-left: 50px;
+  padding-left: 40px;
+  border-radius: 3px;
+  border: 0px;
+  outline: none;
+}
+
+.submit {
+  width: 300px;
+  margin-top: 20px;
+  padding-left: 0px;
+  background-color: #FE9901;
+  font-size: 20px;
+  color: #FFFFFF;
+}
+
+.no_select {
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+}
+
+.welcome {
+  float: left;
+  margin-top: 106px;
+  margin-left: 700px;
+  font-size: 24px;
+  font-family: Arial;
+  color: #2E4358;
+}
+
+.lab_check {
+  display: inline-block;
+  width: 180px;
+  margin-top: 20px;
+  padding-left: 0px;
+  font-size: 10px;
+  color: #FFFFFF;
+}
+
+.forget {
+  font-size: 10px;
+  color: #FFFFFF;'
+}
+
+.login_input_user {
+  margin-top: 60px;
+}
+
+.login_input_pass {
+  margin-top: 20px;
+}
+
+.login_up {
+  height: 650px;
+  border-color: red; 
+}
+
+.login_logo{
+  position: absolute;
+  left: 170px;
+  top: 320px;
+}
+
+.logo_down {
+  position: absolute;
+  left: 170px;
+  top: 440px;
+  font-size: 30px;
+  font-weight: bolder;
+  color: #2E4358;
+  font-family: Arial;
+}
+.login_form{
+  height: 320px;
+  width: 400px;
+  background-color: #2E4358;
+  position: absolute;
+  left: 730px;
+  top: 150px;
+  border-radius: 5px;
+}
+
+.login_foot {
+  height: 110px;
+}
+
+.login_foot_con {
+  display:block;
+  font-size: 12px;
+  font-family: Arial Reular;
+  color: #2E4358;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.fontmode {
+  font-family: Arial;
+}

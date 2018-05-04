@@ -1,0 +1,190 @@
+@charset="utf-8";
+
+.error_message {
+  color: red;
+}
+
+.main {
+ overflow: hidden;
+}
+
+body {
+  background-color: #D2DAE3;
+}
+
+.body {
+  height: 760px;
+  width: auto;
+  margin: 0px auto;
+  
+}
+
+.title {
+  height: 80px;
+  background-color: #2E4358;
+}
+
+.title_logo {
+  background-image: url("images/LOGO_Web_40x240.png");
+  float: left;
+  margin: 20px;
+  margin-right: 0px;
+  width: 240px;
+  height: 40px;
+  
+}
+
+.title_oes {
+  float: left;
+  margin-left: 40px;
+  margin-top: 32px;
+  -webkit-user-select:none;
+  color: #FFFFFF;
+  font-family: Arial;
+  font-weight: normal;
+  font-size: 24px;
+}
+
+.title_right {
+  float: right;
+  width: auto;
+  height: 100%
+}
+
+.title_right_ri {
+  float: right;
+  width: 64px;
+  height: 100%
+}
+
+.title_right a {
+  font-family: Arial;
+  font-size: 14px;
+  line-height: 14px;
+  color: #FFFFFF;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+.title_right span {
+  float: right;
+  font-family: Arial;
+  font-size: 14px;
+  color: #FFFFFF;
+  right: 100px;
+  margin-top: 54px;
+  margin-right: 30px;
+  height: 14px;
+}
+
+.title_right img {
+  float: left;
+  margin-right: 10px;
+  margin-left: 2px;
+  margin-top: 50px;
+}
+
+.language {
+  float: right;
+  margin-top: 20px;
+  right: 20px;
+  font-family: 黑体;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+.logout {
+  float: inherit;
+  right: 14px;
+}
+
+.foot {
+  font-family: Arial;
+  font-size: 12px;
+  margin: 0px auto;
+  margin-top: -10px;
+  width: 300px;
+  color: #0A0A0A;
+}
+
+.flash_massage {
+  position: absolute;
+  color: #FFFFFF;
+  width: 270px;
+  top: 160px;
+  left: 645px;
+  text-align: center;
+  height: 35px;
+  line-height: 35px;
+  font-family: Arial;
+  font-size: 20px;
+  font-weight: lighter;
+  display: none;
+}
+
+.current_page {
+    color: #FE9901;
+}
+
+.submit_delete_background {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  opacity: 0.2;
+  z-index: 5;
+}
+
+.submit_delete {
+  border-radius: 3px;
+  display: none;
+  position: absolute;
+  background-color: #FFFFFF;
+  width: 398px;
+  height: 198px;
+  border-color: #2E4358;
+  border-width: 1px;
+  border-style: solid;
+  color: #000000;
+  left: 50%;
+  top: 60%;
+  margin-left: -199px;
+  margin-top: -99px;
+  z-index: 10;
+}
+
+.submit_delete_button {
+  background-color: #FE9901;
+  margin-right: 15px;
+  margin-left: 15px;
+  border-radius: 3px;
+  border-width: 0px;
+  color: #FFFFFF;
+  height: 30px;
+  width: 80px;
+}
+
+.operat_button {
+  position: absolute;
+  top: 115px;
+  height: 14px;
+  width: 100%;
+  font-size: 14px;
+  font-family: Arial;
+  font-weight: normal;
+  text-align: center;
+}
+
+.delete_message {
+  position: absolute;
+  top: 70px;
+  width: 100%;
+  text-align: center;
+}
+
+.close_button {
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+}

@@ -1,0 +1,141 @@
+@charset="utf-8";
+.bread {
+  display: inline-block;
+  position: relative;
+  top: -25px;
+  font-size: 12px;
+  line-height: 12px;
+  font-family: Arial;
+}
+
+.bread li {
+  display: inline;
+}
+
+.question_form {
+  width: 650px;
+  height: 445px;
+  margin: 0px 0px 0px 310px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: Arial;
+  color: #2E4358;
+}
+
+.form_left {
+  position: relative;
+  float: left;
+  height: 320px;
+}
+
+.answer_back {
+  background-color: #D2DAE3;
+}
+.form_left .items1{
+  margin-top: 30px;
+}
+.form_left .items2{
+  margin-top: 80px;
+}
+.form_left .items3{
+  margin-top: 90px;
+}
+
+.form_right input,textarea {
+  outline: none;
+  border-color: #2E4358;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+.form_right {
+  float: left;
+  margin-left: 40px;
+}
+
+.form_id {
+  margin-top: 20px;
+  height: 31px;
+  width: 180px;
+}
+
+.form_description {
+  margin-top: 30px;
+  max-height: 100px;
+  max-width: 470px;
+}
+
+.form_option {
+  margin-top: 20px;
+  
+}
+
+.option {
+  margin-top: 15px;
+}
+
+.option input {
+  width: 445px;
+}
+
+.opt_detail {
+  float: left;
+}
+
+.opt_radio {
+  float:left;
+  width: 16px;
+  height: 148px;
+  display: inline-block;
+}
+.opt_radio div {
+  margin-top: 16px;
+  float:left;
+  width: 16px;
+  height: 21px;
+  display: inline-block;
+}
+
+
+
+.opt_radio img {
+}
+
+.operation {
+  float: left;
+  margin-left:35px;
+  margin-top: 50px;
+  height: 31px;
+}
+
+.operation input {
+  margin-left:10px;
+  height: 26px;
+  width: 190px;
+  background-color: #FE9901;
+  color: #FFFFFF;
+  font-family: Arial;
+  font-weight: bold;
+  border-width: 0px;
+}
+
+.tip_massage {
+  float: right;
+  position: relative;
+  left: -130px;
+  top: -360px;
+}
+
+.tip_massage_detail {
+  margin-top: 55px;
+  color: #fe9901;
+  font-size: 14px;
+  font-family: Arial;
+  border-width: 1px;
+  border-color: #FE9901;
+  border-style: solid;
+  border-radius: 3px;
+  display: block;
+  visibility: hidden;
+}
